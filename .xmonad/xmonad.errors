@@ -1,0 +1,24 @@
+
+xmonad.hs:44:11: warning: [-Wdeprecations]
+    In the use of ‘defaultTheme’
+    (imported from XMonad.Layout.Tabbed, but defined in XMonad.Layout.Decoration):
+    Deprecated: "Use def (from Data.Default, and re-exported by XMonad.Layout.Decoration) instead."
+   |
+44 | myTheme = defaultTheme
+   |           ^^^^^^^^^^^^
+
+xmonad.hs:117:14: warning: [-Wdeprecations]
+    In the use of ‘defaultConfig’
+    (imported from XMonad, but defined in XMonad.Config):
+    Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
+    |
+117 |     xmonad $ defaultConfig
+    |              ^^^^^^^^^^^^^
+
+xmonad.hs:128:69: warning: [-Wdeprecations]
+    In the use of ‘defaultConfig’
+    (imported from XMonad, but defined in XMonad.Config):
+    Deprecated: "Use def (from Data.Default, and re-exported by XMonad and XMonad.Config) instead."
+    |
+128 |           manageHook = manageDocks <+> myManageHook  <+> manageHook defaultConfig,
+    |                                                                     ^^^^^^^^^^^^^

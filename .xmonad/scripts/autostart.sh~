@@ -1,0 +1,10 @@
+#!/usr/bin/zsh
+
+#(sleep 5; /usr/bin/xmobar) &
+
+(sleep 5; /usr/local/bin/xflux -z 10522) &
+
+#$HOME/.conky/startup.sh
+(sleep 5; conky -c $HOME/.conky/conkyrc0) &
+(sleep 5; conky -c $HOME/.conky/conkyrc1) &
+(sleep 5; conky -c $HOME/.conky/conkyrc2) &
