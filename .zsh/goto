@@ -8,9 +8,14 @@
 #            goto -b "*pattern*"
 #
 #
-#      -b    also opens the directory in Thunar
+#      -b    also opens the directory in whatever $FILE_BROWSER you specify
 #
 #
+
+ROOT_SEARCH_DIR=/home/jdonald/Library
+BROWSE_FLAG='-b'
+FILE_BROWSER=/usr/bin/thunar
+
 go_to_dir() {
     rawdir=$1
     dir=`echo ${rawdir} | /bin/sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba'`
@@ -20,19 +25,33 @@ go_to_dir() {
 }
 
 
+get_max_job_num() {
+    for j in `jobs | egrep -o "\[[0-9]+" | cut -c 2-5`; do
+	# do nothing
+    done
+    echo $j
+}
+
+do_browse() {
+    ${FILE_BROWSER} $1 &
+    j=$(get_max_job_num)
+    detach %{$j}
+}
+
+
 goto() {
     search_string=${1}
 
-    if [[ "${1}" -eq "-b" ]]
+    if [[ "${1}" == '-b' ]]
     then
 	search_string=${2}
 	option=${1}
+    else
+	option=''
     fi
 
-
-
     let "i = 1"
-    for dir in `find ~/athenaeum -type d -iname "${search_string}"`
+    for dir in `find ${ROOT_SEARCH_DIR} -type d -iname "${search_string}"`
     do
 	dirs_array[$i]="$dir"
 	(( i = ${i} + 1 ))
@@ -48,8 +67,11 @@ goto() {
     if [[ ${num_results} -eq 1 ]]
     then
 	go_to_dir ${dirs_array[1]}
-	return # returns control to the calling process i.e. shell session
-	#exit - ends the entire shell session - which is NOT what we want
+	if [[ ${option} == '-b' ]]
+	then
+	    do_browse ${dirs_array[1]}
+	fi
+	return
     fi
 
     echo "${num_results} matches:"
@@ -62,8 +84,6 @@ goto() {
 	(( i = ${i} + 1 ))
     done
 
-
-
     let "i = 1"
 
     echo -e "\n"
@@ -72,9 +92,9 @@ goto() {
 
     go_to_dir ${dirs_array[$answer]}
 
-    if [[ ${option} -eq '-b' ]]
+    if [[ ${option} == '-b' ]]
     then
-       thunar ${dirs_array[$answer]} &	
+	do_browse ${dirs_array[$answer]}
     fi
 
 }
