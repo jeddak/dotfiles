@@ -117,12 +117,12 @@ for each screen id (0,1..).The -x tells xmobar which screen to display the bar o
     xmonad $ defaultConfig
         {
           borderWidth = 1,
-          normalBorderColor = "#333745",
+          normalBorderColor = "#333745", 
           -- focusedBorderColor = "#ff33cc",   --pink
-          -- focusedBorderColor = "#00ff00", -- lime
+          focusedBorderColor = "#00ff00", -- lime
           -- focusedBorderColor = "#ff8000", -- orange
           -- focusedBorderColor = ""#66ccff", -- blue
-          focusedBorderColor = "#cc00ff", -- lavender
+          -- focusedBorderColor = "#cc00ff", -- violet
           terminal= "urxvt",
 
           manageHook = manageDocks <+> myManageHook  <+> manageHook defaultConfig,
