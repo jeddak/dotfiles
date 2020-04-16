@@ -12,9 +12,9 @@
 #
 #
 
-ROOT_SEARCH_DIR=/home/jdonald/Library
+ROOT_DIR=/home/jdonald/athenaeum
 BROWSE_FLAG='-b'
-FILE_BROWSER=/usr/bin/thunar
+FILE_BROWSER=/usr/bin/pcmanfm
 
 go_to_dir() {
     rawdir=$1
@@ -50,8 +50,12 @@ goto() {
 	option=''
     fi
 
+    echo "searching from ${ROOT_DIR} for ${search_string}..."
+    
+    unset dirs_array   #clear the previous search results
+    
     let "i = 1"
-    for dir in `find ${ROOT_SEARCH_DIR} -type d -iname "${search_string}"`
+    for dir in `find ${ROOT_DIR} -type d -iname "${search_string}"`
     do
 	dirs_array[$i]="$dir"
 	(( i = ${i} + 1 ))
@@ -71,7 +75,7 @@ goto() {
 	then
 	    do_browse ${dirs_array[1]}
 	fi
-	return
+	return 
     fi
 
     echo "${num_results} matches:"
@@ -89,6 +93,11 @@ goto() {
     echo -e "\n"
 
     read "answer?which directory? "
+
+    if [[ ${answer} == 'q' ]]
+    then
+	return
+    fi
 
     go_to_dir ${dirs_array[$answer]}
 

@@ -1,0 +1,97 @@
+# shell functions
+#
+# find a file by name, and open that file using $EDITOR
+#
+# usage:
+#            ed "*pattern*"
+#
+#
+#
+#
+#
+
+ROOT_DIR=${HOME}
+
+open_file() {
+    rawfile=$1
+    f=`echo ${rawfile} | /bin/sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba'`
+    do_edit "${f}"
+    return
+}
+
+
+get_max_job_num() {
+    for j in `jobs | egrep -o "\[[0-9]+" | cut -c 2-5`; do
+	# do nothing
+    done
+    echo $j
+}
+
+do_edit() {
+    ${EDITOR} ${1} &
+    if [[ ${EDITOR} == 'emacsclient' ]]
+    then
+	return
+    fi
+    j=$(get_max_job_num)
+    detach %{$j}
+}
+
+
+ed() {
+    search_string=${1}
+
+    if [[ "${1}" == '-a' ]]
+    then
+	ROOT_DIR=${HOME}
+	search_string=${2}
+    else
+	ROOT_DIR=${PWD}
+    fi
+    echo "searching from ${ROOT_DIR} for ${search_string}..."
+
+    unset files_array   #clear the previous search results
+    
+    let "i = 1"
+    for file in `find ${ROOT_DIR} -type f -iname "${search_string}"`
+    do
+	files_array[$i]="$file"
+	(( i = ${i} + 1 ))
+    done
+
+    (( num_results = ${i} - 1 ))
+
+    if [[ ${num_results} -eq 0 ]]
+    then
+	echo "no matches found"
+	return
+    fi
+    if [[ ${num_results} -eq 1 ]]
+    then
+	open_file ${files_array[1]}
+	return # returns control to the calling process i.e. shell session
+	#exit - ends the entire shell session - which is NOT what we want
+    fi
+
+    echo "${num_results} matches:"
+    echo
+
+    let "i = 1"
+    for file in $files_array
+    do
+	echo "$i.  ${files_array[$i]}"
+	(( i = ${i} + 1 ))
+    done
+
+    let "i = 1"
+
+    echo -e "\n"
+
+    read "answer?which file? "
+
+    if [[ ${answer} == 'q' ]]
+    then
+	return
+    fi
+    open_file ${files_array[$answer]}
+}
