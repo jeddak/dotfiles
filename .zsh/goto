@@ -12,8 +12,6 @@
 #
 #
 
-
-BROWSE_FLAG='-b'
 FILE_BROWSER=/usr/bin/pcmanfm
 
 go_to_dir() {
@@ -24,40 +22,40 @@ go_to_dir() {
     return
 }
 
-
-get_max_job_num() {
-    for j in `jobs | egrep -o "\[[0-9]+" | cut -c 2-5`; do
-	# do nothing
-    done
-    echo $j
-}
-
 do_browse() {
-    ${FILE_BROWSER} $1 &
-    j=$(get_max_job_num)
-    detach %{$j}
+    nohup ${FILE_BROWSER} $1 > /dev/null &
 }
 
 
 goto() {
-    ROOT_SEARCH_DIR=/home/jdonald/athenaeum
-    
-    search_string=${1}
 
-    if [[ "${1}" == '-b' ]]
+    BROWSE_FLAG='-b'
+    SEARCH_ALL_FLAG='-a'
+
+    search_string=${1}
+    search_start_dir=${PWD}
+    open_file_browser=0
+
+    num_args=$#
+
+    search_string=${argv[$num_args]}   # zsh uses 1-based array indexing    
+    
+    if [[ "${1}" == ${BROWSE_FLAG} || "${2}" == ${BROWSE_FLAG}  ]]
     then
-	search_string=${2}
-	option=${1}
-    else
-	option=''
+	open_file_browser=1
     fi
 
-    echo "searching from ${ROOT_SEARCH_DIR} for ${search_string}..."
+    if [[ "${1}" == ${SEARCH_ALL_FLAG} || "${2}" == ${SEARCH_ALL_FLAG}  ]]
+    then
+	search_start_dir=${HOME}
+    fi
+    
+    echo "searching from ${search_start_dir} for ${search_string}..."
     
     unset dirs_array   #clear the previous search results
     
     let "i = 1"
-    for dir in `find ${ROOT_SEARCH_DIR} -type d -iname "${search_string}"`
+    for dir in `find ${search_start_dir} -type d -iname "${search_string}"`
     do
 	dirs_array[$i]="$dir"
 	(( i = ${i} + 1 ))
@@ -73,7 +71,7 @@ goto() {
     if [[ ${num_results} -eq 1 ]]
     then
 	go_to_dir ${dirs_array[1]}
-	if [[ ${option} == '-b' ]]
+	if [[ ${open_file_browser} == 1 ]]
 	then
 	    do_browse ${dirs_array[1]}
 	fi
@@ -104,7 +102,7 @@ goto() {
 
     go_to_dir ${dirs_array[$answer]}
 
-    if [[ ${option} == '-b' ]]
+    if [[ ${open_file_browser} == 1 ]]       
     then
 	do_browse ${dirs_array[$answer]}
     fi

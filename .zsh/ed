@@ -19,22 +19,8 @@ open_file() {
     return
 }
 
-
-get_max_job_num() {
-    for j in `jobs | egrep -o "\[[0-9]+" | cut -c 2-5`; do
-	# do nothing
-    done
-    echo $j
-}
-
 do_edit() {
-    ${EDITOR} ${1} &
-    if [[ ${EDITOR} == 'emacsclient' ]]
-    then
-	return
-    fi
-    j=$(get_max_job_num)
-    detach %{$j}
+    nohup ${EDITOR} ${1} > /dev/null &
 }
 
 
