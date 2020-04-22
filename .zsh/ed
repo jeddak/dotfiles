@@ -41,19 +41,21 @@ do_edit() {
 ed() {
     search_string=${1}
 
+    search_start_dir=${ROOT_DIR}
+
     if [[ "${1}" == '-a' ]]
     then
-	ROOT_DIR=${HOME}
+	search_start_dir=${ROOT_DIR}
 	search_string=${2}
     else
-	ROOT_DIR=${PWD}
+	search_start_dir=${PWD}
     fi
-    echo "searching from ${ROOT_DIR} for ${search_string}..."
+    echo "searching from ${search_start_dir} for ${search_string}..."
 
     unset files_array   #clear the previous search results
     
     let "i = 1"
-    for file in `find ${ROOT_DIR} -type f -iname "${search_string}"`
+    for file in `find ${search_start_dir} -type f -iname "${search_string}"`
     do
 	files_array[$i]="$file"
 	(( i = ${i} + 1 ))
@@ -79,7 +81,7 @@ ed() {
     let "i = 1"
     for file in $files_array
     do
-	echo "$i.  ${files_array[$i]}"
+	echo "$i. ${files_array[$i]}"
 	(( i = ${i} + 1 ))
     done
 

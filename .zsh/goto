@@ -12,7 +12,7 @@
 #
 #
 
-ROOT_DIR=/home/jdonald/athenaeum
+
 BROWSE_FLAG='-b'
 FILE_BROWSER=/usr/bin/pcmanfm
 
@@ -40,6 +40,8 @@ do_browse() {
 
 
 goto() {
+    ROOT_SEARCH_DIR=/home/jdonald/athenaeum
+    
     search_string=${1}
 
     if [[ "${1}" == '-b' ]]
@@ -50,12 +52,12 @@ goto() {
 	option=''
     fi
 
-    echo "searching from ${ROOT_DIR} for ${search_string}..."
+    echo "searching from ${ROOT_SEARCH_DIR} for ${search_string}..."
     
     unset dirs_array   #clear the previous search results
     
     let "i = 1"
-    for dir in `find ${ROOT_DIR} -type d -iname "${search_string}"`
+    for dir in `find ${ROOT_SEARCH_DIR} -type d -iname "${search_string}"`
     do
 	dirs_array[$i]="$dir"
 	(( i = ${i} + 1 ))
@@ -75,7 +77,8 @@ goto() {
 	then
 	    do_browse ${dirs_array[1]}
 	fi
-	return 
+	return # returns control to the calling process i.e. shell session
+	#exit - ends the entire shell session - which is NOT what we want
     fi
 
     echo "${num_results} matches:"
