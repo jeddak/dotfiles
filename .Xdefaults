@@ -1,6 +1,13 @@
-!URxvt*font:  xft:Terminus:pixelsize=18
-URxvt*font:  xft:terminal:pixelsize=18
+
+
+URxvt.font:   xft:Liberation Mono:pixelsize=18
+
+!URxvt.font:     xft:bitstream vera sans mono:size=16:antialias=true
+!URxvt.boldFont: xft:bitstream vera sans mono:bold:size=16:antialias=true
+
+!URxvt.font:  xft:Terminus:pixelsize=18
 !urxvt*font: xft:Fixed:pixelsize=16:antialias=true:hinting=true
+
 URxvt*depth:                32
 URxvt*background:            [85]#000000
 URxvt*foreground:            [100]#ffffff
