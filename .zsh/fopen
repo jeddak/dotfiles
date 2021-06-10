@@ -1,0 +1,123 @@
+# shell functions
+#
+# find a file by name, and open that file using xdg-open
+# by default, the search begins at the current directory (pwd) 
+#
+# usage:
+#            fopen "*pattern*"
+#
+#
+#
+#      -a    starts the search from the user's $HOME
+#
+#
+#
+#
+
+ROOT_DIR=${HOME}
+
+
+# usage: open_file file_name
+#
+# cleans up the path string by removing extraneous characters from it
+# then opens the file by calling do_edit
+# 
+open_file() {
+    rawfile=$1
+    f=`echo ${rawfile} | /bin/sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba'`
+    open "${f}"
+    return
+}
+
+
+# shell function
+# invoked from the command line
+# usage: fopen filename
+# where filename is either a pattern or an absolute path
+fopen() {
+    search_string=${1}
+   
+    search_start_dir=${ROOT_DIR}
+
+    if [[ "${1}" == '-a' ]]
+    then
+	search_start_dir=${ROOT_DIR}
+	search_string=${2}
+    else
+	search_start_dir=${PWD}
+    fi
+
+    # if absolute path
+    first_char=`echo ${search_string} | cut -c 1`
+    
+    if [[ "${first_char}" == '~' ||   "${first_char}" == '/' ]]
+    then
+        open_file $search_string
+    else
+        find_and_open $search_string $search_start_dir
+    fi
+
+    unset search_string
+    unset search_start_dir
+    unset first_char
+}
+
+
+# 
+# usage:  find_and_open search_start_dir search_string
+#
+# look for files named search_string
+# present search results and allow user to choose
+# open the user's choice
+find_and_open() {
+#    search_start_dir=${1}
+#    search_string=${2}
+    
+    echo "searching from ${search_start_dir} for ${search_string}..."
+
+    unset files_array   #clear the previous search results
+    
+    let "i = 1"
+    for file in `find ${search_start_dir} -type f -iname "${search_string}"`
+    do
+	files_array[$i]="$file"
+	(( i = ${i} + 1 ))
+    done
+
+    (( num_results = ${i} - 1 ))
+
+    if [[ ${num_results} -eq 0 ]]
+    then
+	echo "no matches found"
+	return
+    fi
+    if [[ ${num_results} -eq 1 ]]
+    then
+	open_file ${files_array[1]}
+	return # returns control to the calling process i.e. shell session
+	#exit - ends the entire shell session - which is NOT what we want
+    fi
+
+    echo "${num_results} matches:"
+    echo
+
+    let "i = 1"
+    for file in $files_array
+    do
+	echo "$i. ${files_array[$i]}"
+	(( i = ${i} + 1 ))
+    done
+
+    let "i = 1"
+
+    echo -e "\n"
+
+    read "answer?which file? "
+
+    if [[ ${answer} == 'q' ]]
+    then
+	return
+    fi
+    open_file ${files_array[$answer]}
+    
+}
