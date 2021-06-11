@@ -1,0 +1,24 @@
+# shell function
+#
+# execute a command whenever a file changes
+#
+# usage:
+#            run-on-change file command
+#
+run-on-change() {
+    watchfile=$1
+    shift
+    cmd=$*
+    tmpf="`mktemp /tmp/runonchange.XXXXX`"
+    cp "${watchfile}" "${tmpf}"
+    trap "rm ${tmpf}; exit 1" 2
+    while : ; do
+        if [ "${watchfile}" -nt "${tmpf}" ]; then
+            cp "${watchfile}" "${tmpf}"
+            ${cmd}
+        fi
+        sleep 2
+    done
+}
+
+

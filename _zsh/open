@@ -1,0 +1,20 @@
+# shell function
+#
+# wrapper for xdg-open
+# opens a file using preferred application in a separate process
+#
+# usage:
+#            open path-to-file
+#
+#  where path is a relative or absolute file path
+#
+#
+#
+
+
+open() {
+    nohup xdg-open ${1} > /dev/null &
+    # if error code, echo "use xdg-mime to set a default for this file's MIME type"
+}
+
+
