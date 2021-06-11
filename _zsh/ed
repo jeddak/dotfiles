@@ -11,7 +11,7 @@
 #      -a    starts the search from the user's $HOME
 #
 #
-#
+# 2021-06-11  made obsolete by the more generalized fopen function
 #
 
 ROOT_DIR=${HOME}
