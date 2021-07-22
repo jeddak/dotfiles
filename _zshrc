@@ -75,7 +75,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(emacs colored-man-pages docker themes git )
+plugins=(colored-man-pages docker themes git )
 #plugins=(encode64 gpg-agent kubectl kops aws 
 
 source $ZSH/oh-my-zsh.sh
@@ -108,18 +108,32 @@ source $ZSH/oh-my-zsh.sh
 
 alias ls='ls --color=auto'
 alias chrome='/usr/bin/chromium'
-alias play='/usr/bin/mplayer'
-alias mixer='/usr/bin/gnome-mixer'
+alias mixer='/usr/bin/qasmixer
 alias l.='ls -d .* --color=auto'
 alias df='df -H'
 alias du='du -ch'
 alias ghci='ghci -fwarn-tabs -fwarn-name-shadowing -fwarn-incomplete-uni-patterns -fwarn-incomplete-patterns  -fwarn-overlapping-patterns -fwarn-incomplete-record-updates -fwarn-missing-signatures -fwarn-monomorphism-restriction -fwarn-orphans'
 alias slugify='~/sbin/slugify -u -a -i'
+alias edit='/usr/bin/emacsclient'
+alias filebrowser='/usr/bin/pcmanfm'
+alias filemanager='/usr/bin/pcmanfm'
+alias python=python3  # one day, we'll be able to install python-is-python3
 
+# ensure key repeats are enabled
+xset r on
 
+# deepen and shorten terminal bell
+# bell percent (volume):  100    bell pitch:  200    bell duration:  12
+xset b 100 200 12
 
 # custom shell functions
 source ~/.zsh/goto
-source ~/.zsh/ed
+source ~/.zsh/open
+source ~/.zsh/fopen
 
 prompt_context(){}   # hide the “user@hostname” info when you’re logged in as yourself on your local machine
+
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/jdonald/.sdkman"
+[[ -s "/home/jdonald/.sdkman/bin/sdkman-init.sh" ]] && source "/home/jdonald/.sdkman/bin/sdkman-init.sh"
