@@ -115,8 +115,8 @@ alias du='du -ch'
 alias ghci='ghci -fwarn-tabs -fwarn-name-shadowing -fwarn-incomplete-uni-patterns -fwarn-incomplete-patterns  -fwarn-overlapping-patterns -fwarn-incomplete-record-updates -fwarn-missing-signatures -fwarn-monomorphism-restriction -fwarn-orphans'
 alias slugify='~/sbin/slugify -u -a -i'
 alias edit='/usr/bin/emacsclient'
-alias filebrowser='/usr/bin/pcmanfm'
-alias filemanager='/usr/bin/pcmanfm'
+alias filebrowser='/usr/bin/spacefm'
+alias filemanager='/usr/bin/spacefm'
 alias python=python3  # one day, we'll be able to install python-is-python3
 
 # ensure key repeats are enabled
