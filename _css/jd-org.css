@@ -1,0 +1,55 @@
+  html { font-family: Cambria,Times,serif; font-size: 9pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 2pt;
+	font-family: Consolas,monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { 
+        border-width: 1px 1px 1px 1px;
+	border-spacing: 2px;
+	border-style: outset outset outset outset;
+	border-color: #909090;
+	border-collapse: collapse;
+	background-color: white;
+ }
+  td {  	
+        border-width: 1px 1px 1px 1px;
+	padding: 1px 5px 1px 5px;
+	border-style: inset;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+         vertical-align: top; }
+   th { 
+	border-width: 1px 1px 1px 1px;
+	padding: 3px 3px 3px 3px;
+	border-style: inset;
+	background-color: #909090;
+        color: white;
+        vertical-align: bottom; 
+	-moz-border-radius: 0px 0px 0px 0px;
+        }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:8px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+
+
+  ul {margin-left: 0; padding-left: 1.75em;}
+
