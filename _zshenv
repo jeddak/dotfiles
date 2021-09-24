@@ -19,26 +19,30 @@ export SCREEN2=DP-2 #DELL U2518D  2560x1440
 #export JDK_HOME=$JAVA_HOME
 #export JRE_HOME=$JAVA_HOME/jre
 
-
+# cargo is the Rust package manager
 CARGO_BIN=~/.cargo/bin
 
-export NODE_HOME=/opt/node-v12.18.4-linux-x64
+# node
+#export NODE_HOME=/opt/node-v12.18.4-linux-x64
 
 
-export FVTT_CONFIG1=${HOME}/.config/Foundry\ Virtual\ Tabletop
+# Foundry Virtual Table Top
+#export FVTT_CONFIG1=${HOME}/.config/Foundry\ Virtual\ Tabletop
 
-export FVTT_VAR=${HOME}/.local/share/FoundryVTT
-export FVTT_CONFIG=${FVTT_VAR}/Config
-export FVTT_DATA=${FVTT_VAR}/Data
-export FVTT_LOGS=${FVTT_VAR}/Logs
-export FVTT_ROOT=${HOME}/foundryvtt
+#export FVTT_VAR=${HOME}/.local/share/FoundryVTT
+#export FVTT_CONFIG=${FVTT_VAR}/Config
+#export FVTT_DATA=${FVTT_VAR}/Data
+#export FVTT_LOGS=${FVTT_VAR}/Logs
+#export FVTT_ROOT=${HOME}/foundryvtt
 
-export ECLIPSE_HOME=${HOME}/eclipse/java-2020-03
-export SCALA_IDE_HOME=${HOME}/scala-ide
+export ECLIPSE_HOME=${HOME}/eclipse/java-2021-09
+#export SCALA_IDE_HOME=${HOME}/scala-ide
 
 export LIBREOFFICE_HOME=/usr/lib/libreoffice
 
-export IDEA_HOME=/opt/idea-IC-202.6948.69
+#export IDEA_HOME=/opt/idea-IC-202.6948.69
+
+export ANDROID_STUDIO_HOME=/opt/android-studio
 
 export TEXMFHOME=~/texmf
 export TEXMFCONFIG=~/.texmf-config
@@ -65,7 +69,7 @@ export M2_HOME=${HOME}/.m2
 
 
 
-export PATH=${HOME}/.zsh:${HOME}/sbin:${HOME}/.local/bin:${MAVEN_HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/bin:/usr/games:${ECLIPSE_HOME}/eclipse:${FVTT_ROOT}:${CARGO_BIN}:${NODE_HOME}/bin:
+export PATH=${HOME}/.zsh:${HOME}/.local/sbin:${HOME}/.local/bin:${MAVEN_HOME}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/bin:/usr/games:${ECLIPSE_HOME}/eclipse:${FVTT_ROOT}:${CARGO_BIN}:${NODE_HOME}/bin:${ANDROID_STUDIO_HOME}/bin
 
 #:$KAFKA_HOME/bin
 
@@ -90,10 +94,10 @@ export SVN_REPOS="file://${HOME}/svn_repos"
 export LEDGER_FILE=~/finance/ledger.dat
 
 # Postgresql
-export PGHOST=`uname -n`
-export PGDATABASE=gmshell
-export PGPORT=5433
-export PGUSER=$USER
+#export PGHOST=`uname -n`
+#export PGDATABASE=gmshell
+#export PGPORT=5433
+#export PGUSER=$USER
 #export PGDATA=/var/postgresql/data
 
 export SVN_EDITOR=nano
