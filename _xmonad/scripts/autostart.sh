@@ -8,7 +8,7 @@ trayer --edge right --align top --SetDockType true --SetPartialStrut true --expa
  
 #xsetroot -solid midnightblue
 
-(sleep 4; /usr/local/bin/xflux -z 10522) &
+#(sleep 4; /usr/local/bin/xflux -z 10522) &  #TODO set up redshift
 
 #$HOME/.conky/startup.sh
 #(sleep 5; conky -c $HOME/.conky/conkyrc0) &
