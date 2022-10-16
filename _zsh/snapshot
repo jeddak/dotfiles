@@ -1,0 +1,23 @@
+# shell functions
+#
+# take a date-stamped snapshot of a file
+#
+# usage:
+#            snapshot {filepath}
+#
+
+snapshot() {
+    FILEPATH=${1}
+
+    FILENAME=$(/usr/bin/basename -- "$FILEPATH")
+
+    EXTENSION="${FILENAME##*.}"
+
+    BASENAME="${FILENAME%.*}"
+
+    DATESTAMP=`date +%Y%m%d-%H%M`
+
+    COPY_NAME="${BASENAME}-${DATESTAMP}.${EXTENSION}"
+
+    cp -rpv ${FILEPATH} ${COPY_NAME}
+}
