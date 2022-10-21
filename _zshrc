@@ -96,7 +96,7 @@ source $ZSH/oh-my-zsh.sh
 
 # better ls colors     https://github.com/seebi/dircolors-solarized 
 
-eval `dircolors ~/.local/share/dircolors-solarized/dircolors.256dark`
+eval `dircolors ~/.local/share/dircolors-solarized/dircolors.256light`
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
