@@ -1,23 +1,40 @@
 # shell functions
 #
-# take a date-stamped snapshot of a file
+# take a date-stamped snapshot of a file or directory
 #
 # usage:
 #            snapshot {filepath}
 #
-
+# TODO   -a   if this is a directory, it will be archived using .tar
+#
 snapshot() {
     FILEPATH=${1}
 
-    FILENAME=$(/usr/bin/basename -- "$FILEPATH")
+    if [[ -e $FILEPATH ]];
+       then
+           DATESTAMP=`date +%Y%m%d-%H%M`
 
-    EXTENSION="${FILENAME##*.}"
-
-    BASENAME="${FILENAME%.*}"
-
-    DATESTAMP=`date +%Y%m%d-%H%M`
-
-    COPY_NAME="${BASENAME}-${DATESTAMP}.${EXTENSION}"
-
-    cp -rpv ${FILEPATH} ${COPY_NAME}
+           FILENAME=$(/usr/bin/basename -- "$FILEPATH")
+           if [[ -d $FILEPATH ]];
+           then
+               COPY_NAME="${FILENAME}-${DATESTAMP}"
+               cp -rpv  ${FILEPATH} ${COPY_NAME}
+           else
+               if [[ -f $FILEPATH ]];
+               then
+                   EXTENSION="${FILENAME##*.}"
+                   
+                   BASENAME="${FILENAME%.*}"
+           
+                   COPY_NAME="${BASENAME}-${DATESTAMP}.${EXTENSION}"
+           
+                   cp -pv ${FILEPATH} ${COPY_NAME}
+               else
+                   echo "unknown error (neither directory nor file)"
+               fi
+           fi
+    else
+        echo "'${FILEPATH}' does not exist"
+        exit 1
+    fi
 }
